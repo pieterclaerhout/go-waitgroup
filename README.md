@@ -1,5 +1,7 @@
 # go-waitgroup
 
+[![GoDoc](https://godoc.org/github.com/pieterclaerhout/go-waitgroup?status.png)](https://godoc.org/github.com/pieterclaerhout/go-waitgroup)
+
 An package that allows you to use the constructs of a [`sync.WaitGroup`](https://golang.org/pkg/sync/#WaitGroup) to
 create a pool of goroutines and control the concurrency.
 
