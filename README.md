@@ -33,8 +33,13 @@ func main() {
         wg.BlockAdd()
         go func(url string) {
             fmt.Println("%s: checking", url)
-            _, err := http.Get(url)
-            fmt.Println("%s: result: %v", err)
+            res, err := http.Get(url)
+            if err != nil {
+                fmt.Println("Error: %v")
+            } else {
+                defer res.Body.Close()
+                fmt.Println("%s: result: %v", err)
+            }
             wg.Done()
         }(url)
     }
