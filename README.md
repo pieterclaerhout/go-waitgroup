@@ -32,6 +32,7 @@ func main() {
     for _, url := range urls {
         wg.BlockAdd()
         go func(url string) {
+            defer wg.Done()
             fmt.Println("%s: checking", url)
             res, err := http.Get(url)
             if err != nil {
@@ -40,7 +41,6 @@ func main() {
                 defer res.Body.Close()
                 fmt.Println("%s: result: %v", err)
             }
-            wg.Done()
         }(url)
     }
 
