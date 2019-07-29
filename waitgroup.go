@@ -2,7 +2,7 @@ package waitgroup
 
 import (
 	"sync"
-	"sync/atomic"
+	// "sync/atomic"
 )
 
 // WaitGroup implements a simple goruntine pool.
@@ -31,8 +31,8 @@ func (wg *WaitGroup) BlockAdd() {
 	if wg.size > 0 {
 		wg.pool <- 1
 	}
+	// atomic.AddInt64(&wg.waitCount, 1)
 	wg.waitGroup.Add(1)
-	atomic.AddInt64(&wg.waitCount, 1)
 }
 
 // Done pops ‘one’ out the group.
@@ -40,8 +40,8 @@ func (wg *WaitGroup) Done() {
 	if wg.size > 0 {
 		<-wg.pool
 	}
+	// atomic.AddInt64(&wg.waitCount, -1)
 	wg.waitGroup.Done()
-	atomic.AddInt64(&wg.waitCount, -1)
 }
 
 // Wait waiting the group empty
@@ -51,5 +51,5 @@ func (wg *WaitGroup) Wait() {
 
 // PendingCount returns the number of pending operations
 func (wg *WaitGroup) PendingCount() int64 {
-	return wg.waitCount
+	return int64(len(wg.pool))
 }
