@@ -1,6 +1,8 @@
 # go-waitgroup
 
-[![GoDoc](https://godoc.org/github.com/pieterclaerhout/go-waitgroup?status.png)](https://godoc.org/github.com/pieterclaerhout/go-waitgroup)
+[![Go Report Card](https://goreportcard.com/badge/github.com/pieterclaerhout/go-waitgroup)](https://goreportcard.com/report/github.com/pieterclaerhout/go-waitgroup)
+[![Documentation](https://godoc.org/github.com/pieterclaerhout/go-waitgroup?status.svg)](http://godoc.org/github.com/pieterclaerhout/go-waitgroup)
+[![GitHub issues](https://img.shields.io/github/issues/pieterclaerhout/go-waitgroup.svg)](https://github.com/pieterclaerhout/go-waitgroup/issues)
 
 An package that allows you to use the constructs of a [`sync.WaitGroup`](https://golang.org/pkg/sync/#WaitGroup) to
 create a pool of goroutines and control the concurrency.
