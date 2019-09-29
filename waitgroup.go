@@ -26,12 +26,20 @@ func NewWaitGroup(size int) *WaitGroup {
 	return wg
 }
 
+// Add add the function close to the waitgroup
+func (wg *WaitGroup) Add(closure func()) {
+	wg.BlockAdd()
+	go func() {
+		defer wg.Done()
+		closure()
+	}()
+}
+
 // BlockAdd pushes ‘one’ into the group. Blocks if the group is full.
 func (wg *WaitGroup) BlockAdd() {
 	if wg.size > 0 {
 		wg.pool <- 1
 	}
-	// atomic.AddInt64(&wg.waitCount, 1)
 	wg.waitGroup.Add(1)
 }
 
@@ -40,7 +48,6 @@ func (wg *WaitGroup) Done() {
 	if wg.size > 0 {
 		<-wg.pool
 	}
-	// atomic.AddInt64(&wg.waitCount, -1)
 	wg.waitGroup.Done()
 }
 
