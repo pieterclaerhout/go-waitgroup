@@ -2,7 +2,6 @@ package waitgroup
 
 import (
 	"sync"
-	// "sync/atomic"
 )
 
 // WaitGroup implements a simple goruntine pool.

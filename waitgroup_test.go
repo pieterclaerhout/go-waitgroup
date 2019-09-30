@@ -8,7 +8,7 @@ import (
 	"github.com/pieterclaerhout/go-waitgroup"
 )
 
-func Test_Waitgroup(t *testing.T) {
+func Test_WaitGroup(t *testing.T) {
 
 	type test struct {
 		name string
@@ -24,6 +24,7 @@ func Test_Waitgroup(t *testing.T) {
 
 			wg := waitgroup.NewWaitGroup(tc.size)
 			assert.NotNil(t, wg)
+
 			assert.Zero(t, wg.PendingCount(), "pending-before")
 
 			wg.BlockAdd()
@@ -36,6 +37,32 @@ func Test_Waitgroup(t *testing.T) {
 			wg.Wait()
 
 			assert.Zero(t, wg.PendingCount(), "pending-after")
+
+		})
+	}
+
+}
+
+func Test_WaitGroup_Add(t *testing.T) {
+
+	type test struct {
+		name string
+		size int
+	}
+
+	var tests = []test{
+		{"single", 1},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+
+			wg := waitgroup.NewWaitGroup(tc.size)
+			assert.NotNil(t, wg)
+
+			wg.Add(func() {})
+
+			wg.Wait()
 
 		})
 	}
