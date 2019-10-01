@@ -6,6 +6,8 @@
 [![GitHub version](https://badge.fury.io/gh/pieterclaerhout%2Fgo-waitgroup.svg)](https://badge.fury.io/gh/pieterclaerhout%2Fgo-waitgroup)
 [![GitHub issues](https://img.shields.io/github/issues/pieterclaerhout/go-waitgroup.svg)](https://github.com/pieterclaerhout/go-waitgroup/issues)
 
+## How to use
+
 An package that allows you to use the constructs of a [`sync.WaitGroup`](https://golang.org/pkg/sync/#WaitGroup) to
 create a pool of goroutines and control the concurrency.
 
@@ -56,6 +58,8 @@ func main() {
 }
 ```
 
+## Using closures
+
 There is also a way to use function closures to make it even more readable:
 
 ```go
@@ -98,6 +102,52 @@ func main() {
 
 	wg.Wait()
 	fmt.Println("Finished")
+
+}
+```
+
+## Handling errors
+
+If you want to handle errors, there is also an `ErrorGroup`. This uses the same principles as a normal `WaitGroup` with a small twist.
+
+First of all, you can only add functions which returns just an `error`.
+
+Second, as soon as one of the queued items fail, the rest will be cancelled:
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+
+	"github.com/pieterclaerhout/go-waitgroup"
+)
+
+func main() {
+
+	ctx := context.Background()
+
+	wg, err := waitgroup.NewErrorGroup(ctx, tc.size)
+	if err != nil {
+		fmt.Println("Error: %v")
+		os.Exit(1)
+	}
+
+	wg.Add(func() error {
+		return nil
+	})
+
+	wg.Add(func() error {
+		return errors.New("An error occurred")
+	})
+
+	err := wg.Wait()
+	if err != nil {
+		fmt.Println("Error: %v")
+		os.Exit(1)
+	}
 
 }
 ```
