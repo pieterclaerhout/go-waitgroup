@@ -129,7 +129,7 @@ func main() {
 
 	ctx := context.Background()
 
-	wg, err := waitgroup.NewErrorGroup(ctx, tc.size)
+	wg, ctx := waitgroup.NewErrorGroup(ctx, tc.size)
 	if err != nil {
 		fmt.Println("Error: %v")
 		os.Exit(1)
@@ -143,8 +143,7 @@ func main() {
 		return errors.New("An error occurred")
 	})
 
-	err := wg.Wait()
-	if err != nil {
+	if err := wg.Wait(); err != nil {
 		fmt.Println("Error: %v")
 		os.Exit(1)
 	}
