@@ -8,7 +8,7 @@ import (
 	"github.com/pieterclaerhout/go-waitgroup"
 )
 
-func Test_WaitGroup(t *testing.T) {
+func TestWaitGroup(t *testing.T) {
 
 	type test struct {
 		name string
@@ -43,7 +43,7 @@ func Test_WaitGroup(t *testing.T) {
 
 }
 
-func Test_WaitGroup_Add(t *testing.T) {
+func TestWaitGroupAdd(t *testing.T) {
 
 	type test struct {
 		name string
@@ -60,7 +60,9 @@ func Test_WaitGroup_Add(t *testing.T) {
 			wg := waitgroup.NewWaitGroup(tc.size)
 			assert.NotNil(t, wg)
 
-			wg.Add(func() {})
+			wg.Add(func() {
+				// Doing nothing here
+			})
 
 			wg.Wait()
 

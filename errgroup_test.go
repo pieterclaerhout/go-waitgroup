@@ -10,7 +10,7 @@ import (
 	"github.com/pieterclaerhout/go-waitgroup"
 )
 
-func Test_ErrorGroup_Add(t *testing.T) {
+func TestErrorGroupAdd(t *testing.T) {
 
 	type test struct {
 		name string
