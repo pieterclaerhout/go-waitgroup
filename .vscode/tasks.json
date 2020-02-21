@@ -1,0 +1,26 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "go-waitgroup | build",
+            "type": "shell",
+            "command": "make build",
+            "group": "build",
+            "problemMatcher": ["$go"]
+        },
+        {
+            "label": "go-waitgroup | run",
+            "type": "shell",
+            "command": "make run",
+            "group": "build",
+            "problemMatcher": ["$go"]
+        },
+        {
+            "label": "go-waitgroup | test",
+            "type": "shell",
+            "command": "make test",
+            "group": "build",
+            "problemMatcher": ["$go"]
+        }
+    ]
+}
