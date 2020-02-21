@@ -150,3 +150,44 @@ func main() {
 
 }
 ```
+
+You can also add multiple functions in one step:
+
+```go
+package main
+
+import (
+	"context"
+	"errors"
+	"fmt"
+	"os"
+
+	"github.com/pieterclaerhout/go-waitgroup"
+)
+
+func main() {
+
+	ctx := context.Background()
+
+	wg, ctx := waitgroup.NewErrorGroup(ctx, tc.size)
+	if err != nil {
+		fmt.Println("Error: %v")
+		os.Exit(1)
+	}
+
+	wg.Add(
+		func() error {
+			return nil
+		},
+		func() error {
+			return errors.New("An error occurred")
+		},
+	)
+
+	if err := wg.Wait(); err != nil {
+		fmt.Println("Error: %v")
+		os.Exit(1)
+	}
+
+}
+```

@@ -26,12 +26,15 @@ func NewWaitGroup(size int) *WaitGroup {
 }
 
 // Add add the function close to the waitgroup
-func (wg *WaitGroup) Add(closure func()) {
-	wg.BlockAdd()
-	go func() {
-		defer wg.Done()
-		closure()
-	}()
+func (wg *WaitGroup) Add(closures ...func()) {
+	for _, c := range closures {
+		closure := c
+		wg.BlockAdd()
+		go func() {
+			defer wg.Done()
+			closure()
+		}()
+	}
 }
 
 // BlockAdd pushes ‘one’ into the group. Blocks if the group is full.

@@ -46,28 +46,35 @@ func (g *ErrorGroup) Wait() error {
 //
 // The first call to return a non-nil error cancels the group; its error will be
 // returned by Wait.
-func (g *ErrorGroup) Add(f func() error) {
+func (g *ErrorGroup) Add(closures ...func() error) {
 
-	if g.size > 0 {
-		g.pool <- 1
-	}
-	g.wg.Add(1)
+	for _, c := range closures {
 
-	go func() {
-		defer func() {
-			if g.size > 0 {
-				<-g.pool
+		closure := c
+
+		if g.size > 0 {
+			g.pool <- 1
+		}
+		g.wg.Add(1)
+
+		go func() {
+			defer func() {
+				if g.size > 0 {
+					<-g.pool
+				}
+				g.wg.Done()
+			}()
+
+			if err := closure(); err != nil {
+				g.errOnce.Do(func() {
+					g.err = err
+					if g.cancel != nil {
+						g.cancel()
+					}
+				})
 			}
-			g.wg.Done()
 		}()
 
-		if err := f(); err != nil {
-			g.errOnce.Do(func() {
-				g.err = err
-				if g.cancel != nil {
-					g.cancel()
-				}
-			})
-		}
-	}()
+	}
+
 }
