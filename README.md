@@ -1,5 +1,6 @@
 # go-waitgroup
 
+[![Build Status](https://img.shields.io/github/workflow/status/pieterclaerhout/go-waitgroup/Go)](https://github.com/pieterclaerhout/go-waitgroup/actions?query=workflow%3AGo)
 [![Go Report Card](https://goreportcard.com/badge/github.com/pieterclaerhout/go-waitgroup)](https://goreportcard.com/report/github.com/pieterclaerhout/go-waitgroup)
 [![Documentation](https://godoc.org/github.com/pieterclaerhout/go-waitgroup?status.svg)](http://godoc.org/github.com/pieterclaerhout/go-waitgroup)
 [![license](https://img.shields.io/badge/license-Apache%20v2-orange.svg)](https://github.com/pieterclaerhout/go-waitgroup/raw/master/LICENSE)
