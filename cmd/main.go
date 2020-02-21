@@ -26,7 +26,7 @@ func main() {
 			fmt.Printf("%s: checking\n", urlToCheck)
 			res, err := http.Get(urlToCheck)
 			if err != nil {
-				fmt.Println("Error: %v")
+				fmt.Printf("Error: %v\n", err)
 			} else {
 				defer res.Body.Close()
 				fmt.Printf("%s: result: %v\n", urlToCheck, err)
